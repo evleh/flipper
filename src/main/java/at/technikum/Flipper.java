@@ -1,11 +1,9 @@
 package at.technikum;
 
 import at.technikum.commands.*;
-import at.technikum.elements.ExternalLightAdapter;
-import at.technikum.elements.FlipperElement;
-import at.technikum.elements.Hole;
-import at.technikum.elements.Rampe;
+import at.technikum.elements.*;
 import at.technikum.elements.external.ExternalLight;
+import at.technikum.mediator.BumperTargetGroupMediator;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
 
@@ -45,6 +43,7 @@ public class Flipper {
     }
 
     private void initialize() {
+        // Composite + command pattern
         MakroCommand hitRampe = new MakroCommand("hitRampe");
         hitRampe.addCommand(new AddPointsCommand(this, 20));
         hitRampe.addCommand(new LightOnCommand(this,50));
@@ -64,7 +63,27 @@ public class Flipper {
         ExternalLightAdapter externalLightAdapter = new ExternalLightAdapter(new LightOnCommand(this, 10),
                 externalLight);
         elements.add(externalLightAdapter);
+
+        initializeBumperGroup();
+
+
     }
+
+    /**
+     * Initializes components demonstrating the Mediator Pattern
+     */
+    private void initializeBumperGroup(){
+        Command singleBumperHit = new AddPointsCommand(this, 5);
+        BumperTarget targetA = new BumperTarget(singleBumperHit);
+        BumperTarget targetB = new BumperTarget(singleBumperHit);
+        BumperTarget targetC = new BumperTarget(singleBumperHit);
+
+        BumperTarget targetZ = new BumperTarget(singleBumperHit);
+        TunnelElement tunnelElement = new TunnelElement(singleBumperHit);
+
+        BumperTargetGroupMediator mediator = new BumperTargetGroupMediator(targetA, targetB, targetC, targetZ, tunnelElement);
+    }
+
 
     public void play(){
         zustand.pressStart(); // No credit state.
