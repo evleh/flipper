@@ -3,7 +3,9 @@ package at.technikum;
 import at.technikum.commands.*;
 import at.technikum.elements.*;
 import at.technikum.elements.external.ExternalLight;
+import at.technikum.elements.grouped.GroupTarget;
 import at.technikum.mediator.TargetGroupMediator;
+import at.technikum.elements.TunnelElement;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
 
@@ -82,11 +84,11 @@ public class Flipper {
         TargetGroupMediator mediator = new TargetGroupMediator();
 
         // create target elements
-        BumperTarget targetA = new BumperTarget(singleBumperHit, mediator, "A");
-        BumperTarget targetB = new BumperTarget(singleBumperHit, mediator, "B");
-        BumperTarget targetC = new BumperTarget(singleBumperHit, mediator, "C");
-        BumperTarget targetZ = new BumperTarget(singleBumperHit, mediator, "Z");
-        TunnelElement tunnel = new TunnelElement(tunnelOpen, mediator);
+        GroupTarget targetA = new GroupTarget(singleBumperHit, mediator, "A");
+        GroupTarget targetB = new GroupTarget(singleBumperHit, mediator, "B");
+        GroupTarget targetC = new GroupTarget(singleBumperHit, mediator, "C");
+        GroupTarget targetZ = new GroupTarget(singleBumperHit, mediator, "Z");
+        TunnelElement tunnel = new TunnelElement(tunnelOpen);
 
         // add targets to mediator
         mediator.addToTargetGroup(targetA);

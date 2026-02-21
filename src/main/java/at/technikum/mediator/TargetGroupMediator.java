@@ -1,7 +1,7 @@
 package at.technikum.mediator;
 
-import at.technikum.elements.BumperTarget;
 import at.technikum.elements.FlipperElement;
+import at.technikum.elements.grouped.GroupTarget;
 import at.technikum.elements.TunnelElement;
 
 import java.util.ArrayList;
@@ -21,9 +21,9 @@ public class TargetGroupMediator implements Mediator{
 
     private List<Integer> hitCounter = new ArrayList<>();
 
-    private List<BumperTarget> targetGroup = new ArrayList<>();
+    private List<GroupTarget> targetGroup = new ArrayList<>();
 
-    private BumperTarget resetTarget;
+    private GroupTarget resetTarget;
 
     private TunnelElement responseElement;
 
@@ -62,12 +62,12 @@ public class TargetGroupMediator implements Mediator{
         return true;
     }
 
-    public void addToTargetGroup(BumperTarget newTarget){
+    public void addToTargetGroup(GroupTarget newTarget){
         targetGroup.add(newTarget);
         hitCounter.add(0);
     }
 
-    public void setResetTarget(BumperTarget resetTarget){
+    public void setResetTarget(GroupTarget resetTarget){
         this.resetTarget = resetTarget;
     }
 
