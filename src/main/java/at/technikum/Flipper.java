@@ -45,7 +45,7 @@ public class Flipper {
     }
 
     private void initialize() {
-        MakroCommand hitRampe = new MakroCommand();
+        MakroCommand hitRampe = new MakroCommand("hitRampe");
         hitRampe.addCommand(new AddPointsCommand(this, 20));
         hitRampe.addCommand(new LightOnCommand(this,50));
 
@@ -53,7 +53,7 @@ public class Flipper {
         elements.add(rampe);
 
 
-        MakroCommand hitHole = new MakroCommand();
+        MakroCommand hitHole = new MakroCommand("hitHole");
         hitHole.addCommand(new GameLostCommand(this));
         hitHole.addCommand(new ReportStatsCommand(this));
         FlipperElement hole = new Hole(hitHole);
@@ -67,16 +67,14 @@ public class Flipper {
     }
 
     public void play(){
-        zustand.pressStart();
-        zustand.insertCoin();
-        zustand.pressStart();
+        zustand.pressStart(); // No credit state.
+        zustand.insertCoin(); // insert coin -> switch to credit state
+        zustand.pressStart(); // press start -> switch to playing state
         zustand.insertCoin();
         zustand.flipRight();
         zustand.pressStart();
         zustand.pressStart();
         zustand.flipLeft();
-
-
     }
 
     public void incrementCredits(){
@@ -102,7 +100,7 @@ public class Flipper {
     }
 
     public void setLight(int seconds){
-        System.out.println("light on for: " + seconds);
+        System.out.println("light on for: " + seconds + " sec");
     }
 
     public int getRemainingGames() {
