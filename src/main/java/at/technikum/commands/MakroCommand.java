@@ -7,10 +7,19 @@ import java.util.List;
 public class MakroCommand implements Command{ // component im Kompositum
 
     private List<Command> commands = new ArrayList<>();
+    private String commandName;
 
+    public MakroCommand(String commandName){
+        this.commandName = commandName;
+    }
+
+    public MakroCommand() {
+        this("unnamed");
+    }
 
     @Override
     public void execute() {
+        System.out.println("Execute Macro-Command: " + this.commandName);
         commands.forEach(Command::execute); // for-loop im Stream Syntax
     }
 

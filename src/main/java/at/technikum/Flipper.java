@@ -1,11 +1,11 @@
 package at.technikum;
 
 import at.technikum.commands.*;
-import at.technikum.elements.ExternalLightAdapter;
-import at.technikum.elements.FlipperElement;
-import at.technikum.elements.Hole;
-import at.technikum.elements.Rampe;
+import at.technikum.elements.*;
 import at.technikum.elements.external.ExternalLight;
+import at.technikum.elements.grouped.GroupTarget;
+import at.technikum.mediator.TargetGroupMediator;
+import at.technikum.elements.TunnelElement;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
 
@@ -45,7 +45,8 @@ public class Flipper {
     }
 
     private void initialize() {
-        MakroCommand hitRampe = new MakroCommand();
+        // Composite + command pattern
+        MakroCommand hitRampe = new MakroCommand("hitRampe");
         hitRampe.addCommand(new AddPointsCommand(this, 20));
         hitRampe.addCommand(new LightOnCommand(this,50));
 
@@ -53,7 +54,7 @@ public class Flipper {
         elements.add(rampe);
 
 
-        MakroCommand hitHole = new MakroCommand();
+        MakroCommand hitHole = new MakroCommand("hitHole");
         hitHole.addCommand(new GameLostCommand(this));
         hitHole.addCommand(new ReportStatsCommand(this));
         FlipperElement hole = new Hole(hitHole);
@@ -64,19 +65,57 @@ public class Flipper {
         ExternalLightAdapter externalLightAdapter = new ExternalLightAdapter(new LightOnCommand(this, 10),
                 externalLight);
         elements.add(externalLightAdapter);
+
+        initializeBumperGroup();
+
+
     }
 
+    /**
+     * Initializes components demonstrating the Mediator Pattern
+     */
+    private void initializeBumperGroup(){
+        // define commands
+        Command singleBumperHit = new AddPointsCommand(this, 5);
+        MakroCommand tunnelOpen = new MakroCommand("- TUNNEL OPEN (mediator pattern) -");
+        tunnelOpen.addCommand(new AddPointsCommand(this, 1000));
+        tunnelOpen.addCommand(new LightOnCommand(this, 111));
+
+        TargetGroupMediator mediator = new TargetGroupMediator();
+
+        // create target elements
+        GroupTarget targetA = new GroupTarget(singleBumperHit, mediator, "A");
+        GroupTarget targetB = new GroupTarget(singleBumperHit, mediator, "B");
+        GroupTarget targetC = new GroupTarget(singleBumperHit, mediator, "C");
+        GroupTarget targetZ = new GroupTarget(singleBumperHit, mediator, "Z");
+        TunnelElement tunnel = new TunnelElement(tunnelOpen);
+
+        // add targets to mediator
+        mediator.addToTargetGroup(targetA);
+        mediator.addToTargetGroup(targetB);
+        mediator.addToTargetGroup(targetC);
+        mediator.setResetTarget(targetZ);
+        mediator.setResponseElement(tunnel);
+
+        // add targets to flipper
+        elements.add(targetA);
+        elements.add(targetB);
+        elements.add(targetC);
+        elements.add(targetZ);
+        elements.add(tunnel);
+
+    }
+
+
     public void play(){
-        zustand.pressStart();
-        zustand.insertCoin();
-        zustand.pressStart();
+        zustand.pressStart(); // No credit state.
+        zustand.insertCoin(); // insert coin -> switch to credit state
+        zustand.pressStart(); // press start -> switch to playing state
         zustand.insertCoin();
         zustand.flipRight();
         zustand.pressStart();
         zustand.pressStart();
         zustand.flipLeft();
-
-
     }
 
     public void incrementCredits(){
@@ -102,7 +141,7 @@ public class Flipper {
     }
 
     public void setLight(int seconds){
-        System.out.println("light on for: " + seconds);
+        System.out.println("light on for: " + seconds + " sec");
     }
 
     public int getRemainingGames() {
