@@ -3,7 +3,7 @@ package at.technikum;
 import at.technikum.commands.*;
 import at.technikum.elements.*;
 import at.technikum.elements.external.ExternalLight;
-import at.technikum.mediator.BumperTargetGroupMediator;
+import at.technikum.mediator.TargetGroupMediator;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
 
@@ -73,15 +73,30 @@ public class Flipper {
      * Initializes components demonstrating the Mediator Pattern
      */
     private void initializeBumperGroup(){
+        TargetGroupMediator mediator = new TargetGroupMediator();
+
+        // create target elements
         Command singleBumperHit = new AddPointsCommand(this, 5);
-        BumperTarget targetA = new BumperTarget(singleBumperHit);
-        BumperTarget targetB = new BumperTarget(singleBumperHit);
-        BumperTarget targetC = new BumperTarget(singleBumperHit);
+        BumperTarget targetA = new BumperTarget(singleBumperHit, mediator);
+        BumperTarget targetB = new BumperTarget(singleBumperHit, mediator);
+        BumperTarget targetC = new BumperTarget(singleBumperHit, mediator);
+        BumperTarget targetZ = new BumperTarget(singleBumperHit, mediator);
+        TunnelElement tunnel = new TunnelElement(singleBumperHit, mediator);
 
-        BumperTarget targetZ = new BumperTarget(singleBumperHit);
-        TunnelElement tunnelElement = new TunnelElement(singleBumperHit);
+        // add targets to mediator
+        mediator.addToTargetGroup(targetA);
+        mediator.addToTargetGroup(targetB);
+        mediator.addToTargetGroup(targetC);
+        mediator.setResetTarget(targetZ);
+        mediator.setResponseElement(tunnel);
 
-        BumperTargetGroupMediator mediator = new BumperTargetGroupMediator(targetA, targetB, targetC, targetZ, tunnelElement);
+        // add targets to flipper
+        elements.add(targetA);
+        elements.add(targetB);
+        elements.add(targetC);
+        elements.add(targetZ);
+        elements.add(tunnel);
+
     }
 
 

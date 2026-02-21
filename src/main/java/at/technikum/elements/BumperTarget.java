@@ -1,9 +1,12 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
+import at.technikum.mediator.Mediator;
 
 public class BumperTarget extends FlipperElement{
-    public BumperTarget(Command command) {
+    private Mediator mediator;
+    public BumperTarget(Command command, Mediator mediator) {
         super(command);
+        this.mediator = mediator;
     }
 }
