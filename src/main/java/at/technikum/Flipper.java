@@ -73,15 +73,20 @@ public class Flipper {
      * Initializes components demonstrating the Mediator Pattern
      */
     private void initializeBumperGroup(){
+        // define commands
+        Command singleBumperHit = new AddPointsCommand(this, 5);
+        MakroCommand tunnelOpen = new MakroCommand("- TUNNEL OPEN (mediator pattern) -");
+        tunnelOpen.addCommand(new AddPointsCommand(this, 1000));
+        tunnelOpen.addCommand(new LightOnCommand(this, 111));
+
         TargetGroupMediator mediator = new TargetGroupMediator();
 
         // create target elements
-        Command singleBumperHit = new AddPointsCommand(this, 5);
-        BumperTarget targetA = new BumperTarget(singleBumperHit, mediator);
-        BumperTarget targetB = new BumperTarget(singleBumperHit, mediator);
-        BumperTarget targetC = new BumperTarget(singleBumperHit, mediator);
-        BumperTarget targetZ = new BumperTarget(singleBumperHit, mediator);
-        TunnelElement tunnel = new TunnelElement(singleBumperHit, mediator);
+        BumperTarget targetA = new BumperTarget(singleBumperHit, mediator, "A");
+        BumperTarget targetB = new BumperTarget(singleBumperHit, mediator, "B");
+        BumperTarget targetC = new BumperTarget(singleBumperHit, mediator, "C");
+        BumperTarget targetZ = new BumperTarget(singleBumperHit, mediator, "Z");
+        TunnelElement tunnel = new TunnelElement(tunnelOpen, mediator);
 
         // add targets to mediator
         mediator.addToTargetGroup(targetA);
