@@ -8,6 +8,8 @@ import at.technikum.mediator.TargetGroupMediator;
 import at.technikum.elements.TunnelElement;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
+import at.technikum.visitor.ResetVisitor;
+import at.technikum.visitor.Resettable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class Flipper {
         // Composite + command pattern
         MakroCommand hitRampe = new MakroCommand("hitRampe");
         hitRampe.addCommand(new AddPointsCommand(this, 20));
-        hitRampe.addCommand(new LightOnCommand(this,50));
+        hitRampe.addCommand(new BlinkingLightCommand(this,50));
 
         FlipperElement rampe = new Rampe(hitRampe);
         elements.add(rampe);
@@ -62,24 +64,24 @@ public class Flipper {
 
         // Adapter Pattern
         ExternalLight externalLight = new ExternalLight();
-        ExternalLightAdapter externalLightAdapter = new ExternalLightAdapter(new LightOnCommand(this, 10),
+        ExternalLightAdapter externalLightAdapter = new ExternalLightAdapter(new BlinkingLightCommand(this, 10),
                 externalLight);
         elements.add(externalLightAdapter);
 
-        initializeBumperGroup();
+        initializeTargetGroup();
 
-
+        elements.add(new LightTarget(new BlinkingLightCommand(this, 1), false));
     }
 
     /**
      * Initializes components demonstrating the Mediator Pattern
      */
-    private void initializeBumperGroup(){
+    private void initializeTargetGroup(){
         // define commands
         Command singleBumperHit = new AddPointsCommand(this, 5);
         MakroCommand tunnelOpen = new MakroCommand("- TUNNEL OPEN (mediator pattern) -");
         tunnelOpen.addCommand(new AddPointsCommand(this, 1000));
-        tunnelOpen.addCommand(new LightOnCommand(this, 111));
+        tunnelOpen.addCommand(new BlinkingLightCommand(this, 111));
 
         TargetGroupMediator mediator = new TargetGroupMediator();
 
@@ -140,8 +142,8 @@ public class Flipper {
         return elements;
     }
 
-    public void setLight(int seconds){
-        System.out.println("light on for: " + seconds + " sec");
+    public void blinkLight(int seconds){
+        System.out.println("blink light for: " + seconds + " sec");
     }
 
     public int getRemainingGames() {
@@ -156,5 +158,14 @@ public class Flipper {
 
     public int getCredits(){
         return credits;
+    }
+
+    public void reset(){
+        ResetVisitor visitor = new ResetVisitor();
+        for(FlipperElement element : elements){
+            if(element instanceof Resettable){
+                ((Resettable) element).accept(visitor);
+            }
+        }
     }
 }

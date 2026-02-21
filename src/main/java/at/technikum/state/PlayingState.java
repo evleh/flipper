@@ -17,8 +17,8 @@ public class PlayingState extends Zustand {
     public void flipLeft() {
         System.out.println("Playing -> flipLeft");
         // Note: getFirst ist List-Interface methods since Java 21
-//        getFlipper().getElements().getFirst().hit();
-//        getFlipper().getElements().get(2).hit();
+        getFlipper().getElements().getFirst().hit();
+        getFlipper().getElements().get(2).hit();
 
 
 
@@ -27,16 +27,17 @@ public class PlayingState extends Zustand {
     @Override
     public void flipRight() {
         System.out.println("Playing -> flipRight");
-        /*
-        testcode for loosing the ball 3x
-        getFlipper().getElements().get(1).hit();
-        getFlipper().getElements().get(1).hit();
-        getFlipper().getElements().get(1).hit();
-        */
 
-        hitTargetGroup();
+        //testcode for loosing the ball 3x
+        getFlipper().getElements().get(1).hit();
+        getFlipper().getElements().get(1).hit();
+        getFlipper().getElements().get(1).hit();
+
+
+        //hitTargetGroup();
 
         super.getFlipper().setZustand(new EndState(getFlipper()));
+        super.getFlipper().reset();
     }
 
     /**
