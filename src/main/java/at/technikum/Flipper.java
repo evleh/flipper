@@ -1,5 +1,8 @@
 package at.technikum;
 
+import at.technikum.abstractFactory.AbstractDisplayFactory;
+import at.technikum.abstractFactory.ClassicDisplayFactory;
+import at.technikum.abstractFactory.FancyDisplayFactory;
 import at.technikum.commands.*;
 import at.technikum.elements.*;
 import at.technikum.elements.external.ExternalLight;
@@ -34,10 +37,13 @@ public class Flipper {
     private int credits = 0;
     private int remainingGames = 3;
     private List<FlipperElement> elements = new ArrayList<>();
+    AbstractDisplayFactory displayFactory;
 
 
     public Flipper(){
+
         this.zustand = new NoCreditState(this); // braucht referenz an sich selbst
+        this.displayFactory = new ClassicDisplayFactory();
     }
 
     public static void main(String[] args) {
@@ -108,9 +114,21 @@ public class Flipper {
 
     }
 
+    public void tryClassicDisplay(){
+        System.out.println("------ CLASSIC DISPLAY: START ------");
+        this.displayFactory.printPressStart(zustand.pressStart());
+        System.out.println("------ CLASSIC DISPLAY: STOP ------\n");
+    }
+
+    public void tryFancyDisplay(){
+        this.displayFactory = new FancyDisplayFactory();
+        System.out.println("------ FANCY DISPLAY: START ------");
+        this.displayFactory.printPressStart(zustand.pressStart());
+        System.out.println("------ FANCY DISPLAY: STOP ------\n");
+    }
 
     public void play(){
-        zustand.pressStart(); // No credit state.
+        System.out.println(zustand.pressStart()); // No credit state.
         zustand.insertCoin(); // insert coin -> switch to credit state
         zustand.pressStart(); // press start -> switch to playing state
         zustand.insertCoin();
@@ -118,6 +136,9 @@ public class Flipper {
         zustand.pressStart();
         zustand.pressStart();
         zustand.flipLeft();
+
+        tryClassicDisplay();
+        tryFancyDisplay();
     }
 
     public void incrementCredits(){
