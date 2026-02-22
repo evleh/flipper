@@ -70,7 +70,7 @@ public class Flipper {
 
         initializeTargetGroup();
 
-        elements.add(new LightTarget(new BlinkingLightCommand(this, 1), false));
+        elements.add(new LightTarget(new BlinkingLightCommand(this, 1), false, "LightTarget"));
     }
 
     /**
@@ -90,7 +90,7 @@ public class Flipper {
         GroupTarget targetB = new GroupTarget(singleBumperHit, mediator, "B");
         GroupTarget targetC = new GroupTarget(singleBumperHit, mediator, "C");
         GroupTarget targetZ = new GroupTarget(singleBumperHit, mediator, "Z");
-        TunnelElement tunnel = new TunnelElement(tunnelOpen);
+        TunnelElement tunnel = new TunnelElement(tunnelOpen , "TunnelElement");
 
         // add targets to mediator
         mediator.addToTargetGroup(targetA);
@@ -133,7 +133,7 @@ public class Flipper {
     }
 
     public void addPoints(int points){
-        System.out.println("Punkte erhalten: "+ points);
+        System.out.println("\tPunkte erhalten: "+ points);
         // sout sie haben punkte erhalten
     }
 
@@ -143,7 +143,7 @@ public class Flipper {
     }
 
     public void blinkLight(int seconds){
-        System.out.println("blink light for: " + seconds + " sec");
+        System.out.println("\tblink light for: " + seconds + " sec");
     }
 
     public int getRemainingGames() {
@@ -161,11 +161,13 @@ public class Flipper {
     }
 
     public void reset(){
+        System.out.println("--------- RESET VISITOR: START VISITING --------");
         ResetVisitor visitor = new ResetVisitor();
         for(FlipperElement element : elements){
             if(element instanceof Resettable){
                 ((Resettable) element).accept(visitor);
             }
         }
+        System.out.println("--------- RESET VISITOR: DONE VISITING --------");
     }
 }

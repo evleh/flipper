@@ -19,7 +19,7 @@ public class MakroCommand implements Command{ // component im Kompositum
 
     @Override
     public void execute() {
-        System.out.println("Execute Macro-Command: " + this.commandName);
+        System.out.println("# Macro-Command: " + this.commandName);
         commands.forEach(Command::execute); // for-loop im Stream Syntax
     }
 
