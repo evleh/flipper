@@ -18,4 +18,5 @@ public class ExternalLightAdapter extends FlipperElement{
     }
 
 
+
 }
