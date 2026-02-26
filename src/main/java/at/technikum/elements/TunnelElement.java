@@ -1,10 +1,9 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
-import at.technikum.visitor.Resettable;
 import at.technikum.visitor.Visitor;
 
-public class TunnelElement extends FlipperElement implements Resettable {
+public class TunnelElement extends FlipperElement {
     private boolean isOpen;
 
     public TunnelElement(Command command, String name) {

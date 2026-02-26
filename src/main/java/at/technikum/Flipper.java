@@ -12,7 +12,6 @@ import at.technikum.elements.TunnelElement;
 import at.technikum.state.NoCreditState;
 import at.technikum.state.Zustand;
 import at.technikum.visitor.ResetVisitor;
-import at.technikum.visitor.Resettable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,11 +91,11 @@ public class Flipper {
         TargetGroupMediator mediator = new TargetGroupMediator();
 
         // create target elements
-        GroupTarget targetA = new GroupTarget(singleBumperHit, mediator, "A");
-        GroupTarget targetB = new GroupTarget(singleBumperHit, mediator, "B");
-        GroupTarget targetC = new GroupTarget(singleBumperHit, mediator, "C");
-        GroupTarget targetZ = new GroupTarget(singleBumperHit, mediator, "Z");
-        TunnelElement tunnel = new TunnelElement(tunnelOpen , "TunnelElement");
+        GroupTarget targetA = new GroupTarget(singleBumperHit, mediator, "GroupTarget A");
+        GroupTarget targetB = new GroupTarget(singleBumperHit, mediator, "GroupTarget B");
+        GroupTarget targetC = new GroupTarget(singleBumperHit, mediator, "GroupTarget C");
+        GroupTarget targetZ = new GroupTarget(singleBumperHit, mediator, "GroupTarget - Resetting group count");
+        TunnelElement tunnel = new TunnelElement(tunnelOpen , "GroupTarget - Response TunnelElement");
 
         // add targets to mediator
         mediator.addToTargetGroup(targetA);
@@ -185,8 +184,8 @@ public class Flipper {
         System.out.println("--------- RESET VISITOR: START VISITING --------");
         ResetVisitor visitor = new ResetVisitor();
         for(FlipperElement element : elements){
-            if(element instanceof Resettable){
-                ((Resettable) element).accept(visitor);
+            if(element != null){
+                element.accept(visitor);
             }
         }
         System.out.println("--------- RESET VISITOR: DONE VISITING --------");

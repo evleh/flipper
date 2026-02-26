@@ -1,10 +1,9 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
-import at.technikum.visitor.Resettable;
 import at.technikum.visitor.Visitor;
 
-public class LightTarget extends FlipperElement implements Resettable {
+public class LightTarget extends FlipperElement {
     private boolean isOn;
 
     public LightTarget(Command command, boolean isOn, String name) {
