@@ -1,6 +1,7 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
+import at.technikum.visitor.PointSource;
 import at.technikum.visitor.Visitor;
 
 public class Rampe extends FlipperElement{

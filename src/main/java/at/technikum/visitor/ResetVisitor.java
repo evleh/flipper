@@ -1,7 +1,7 @@
 package at.technikum.visitor;
 
 import at.technikum.elements.*;
-import at.technikum.elements.grouped.GroupTarget;
+import at.technikum.elements.GroupTarget;
 
 /*
     Possible improvements: implement "reset"-method in every element and call
@@ -9,16 +9,18 @@ import at.technikum.elements.grouped.GroupTarget;
  */
 
 public class ResetVisitor implements Visitor{
+    private String resetReport = "";
+
     @Override
     public void visit(LightTarget e) {
         e.setOn(false);
-        System.out.println(e.toString());
+        resetReport += e.toString() + "\n";
     }
 
     @Override
     public void visit(TunnelElement e) {
         e.setOpen(false);
-        System.out.println(e.toString());
+        resetReport += e.toString() + "\n";
     }
 
     @Override
@@ -37,10 +39,16 @@ public class ResetVisitor implements Visitor{
     }
 
     @Override
-    public void visit(GroupTarget groupTarget) {
-        groupTarget.setHitCount(0);
-        System.out.println(groupTarget.toString());
-
+    public void visit(GroupTarget e) {
+        e.setHitCount(0);
+        resetReport += e.toString() + "\n";
     }
 
+    public String getResetReport() {
+        return resetReport;
+    }
+
+    public void setResetReport(String resetReport) {
+        this.resetReport = resetReport;
+    }
 }
