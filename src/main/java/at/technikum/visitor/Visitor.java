@@ -8,11 +8,11 @@ public interface Visitor {
 
     void visit(TunnelElement e);
 
-    void accept(ExternalLightAdapter externalLightAdapter);
+    void visit(ExternalLightAdapter externalLightAdapter);
 
-    void accept(Hole hole);
+    void visit(Hole hole);
 
-    void accept(Rampe rampe);
+    void visit(Rampe rampe);
 
-    void accept(GroupTarget groupTarget);
+    void visit(GroupTarget groupTarget);
 }

@@ -1,9 +1,9 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
-import at.technikum.visitor.Resettable;
+import at.technikum.visitor.Visitor;
 
-public abstract class FlipperElement implements Resettable {
+public abstract class FlipperElement{
     private Command command;
     private String name;
 
@@ -15,6 +15,8 @@ public abstract class FlipperElement implements Resettable {
         this.command = command;
         this.name = name;
     }
+
+    public abstract void accept(Visitor v);
 
     public void hit(){
         if(command != null){

@@ -16,6 +16,6 @@ public class Hole extends FlipperElement {
 
     @Override
     public void accept(Visitor v) {
-        v.accept(this);
+        v.visit(this);
     }
 }

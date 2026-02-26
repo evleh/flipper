@@ -21,7 +21,7 @@ public class ExternalLightAdapter extends FlipperElement{
 
     @Override
     public void accept(Visitor v) {
-        v.accept(this);
+        v.visit(this);
     }
 
     public boolean isOn() {

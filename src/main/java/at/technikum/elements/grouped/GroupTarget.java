@@ -7,11 +7,11 @@ import at.technikum.visitor.Visitor;
 
 public class GroupTarget extends FlipperElement {
     private Mediator mediator;
-    private String name;
+    private int hitCount;
     public GroupTarget(Command command, Mediator mediator, String name) {
-        super(command);
+        super(command, name);
         this.mediator = mediator;
-        this.name = name;
+        this.hitCount = 0;
     }
 
     /**
@@ -20,13 +20,27 @@ public class GroupTarget extends FlipperElement {
     @Override
     public void hit(){
         super.hit();
+        hitCount =+ 1;
         if (mediator != null){
-            mediator.makeNotification(this, name);
+            mediator.makeNotification(this, getName());
         }
     }
 
     @Override
     public void accept(Visitor v) {
-        v.accept(this);
+        v.visit(this);
+    }
+
+    public int getHitCount() {
+        return hitCount;
+    }
+
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    @Override
+    public String toString(){
+        return this.getName() + ": " + getHitCount() + " HITS";
     }
 }
