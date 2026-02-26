@@ -1,6 +1,7 @@
 package at.technikum.elements;
 
 import at.technikum.commands.Command;
+import at.technikum.visitor.Visitor;
 
 /**
  * Class represents Flipper Element where the ball is lost
@@ -11,5 +12,10 @@ public class Hole extends FlipperElement {
 
     public Hole(Command command) {
         super(command);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.accept(this);
     }
 }

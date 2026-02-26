@@ -2,6 +2,7 @@ package at.technikum.elements;
 
 import at.technikum.commands.Command;
 import at.technikum.elements.external.ExternalLight;
+import at.technikum.visitor.Visitor;
 
 public class ExternalLightAdapter extends FlipperElement{
     private ExternalLight externalLight;
@@ -18,5 +19,16 @@ public class ExternalLightAdapter extends FlipperElement{
     }
 
 
+    @Override
+    public void accept(Visitor v) {
+        v.accept(this);
+    }
 
+    public boolean isOn() {
+        return externalLight.isOn();
+    }
+
+    public void setOn(boolean on) {
+        externalLight.setOn(on);
+    }
 }

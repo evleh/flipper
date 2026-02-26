@@ -3,6 +3,7 @@ package at.technikum.elements.grouped;
 import at.technikum.commands.Command;
 import at.technikum.elements.FlipperElement;
 import at.technikum.mediator.Mediator;
+import at.technikum.visitor.Visitor;
 
 public class GroupTarget extends FlipperElement {
     private Mediator mediator;
@@ -22,5 +23,10 @@ public class GroupTarget extends FlipperElement {
         if (mediator != null){
             mediator.makeNotification(this, name);
         }
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.accept(this);
     }
 }
