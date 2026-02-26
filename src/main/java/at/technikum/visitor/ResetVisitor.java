@@ -28,12 +28,12 @@ public class ResetVisitor implements Visitor{
 
     @Override
     public void visit(Hole hole) {
-        System.out.println("todo: reset visitor");
+        // Empty because no resetting is necessary
     }
 
     @Override
     public void visit(Rampe rampe) {
-        System.out.println("todo: reset visitor");
+        // Empty because no resetting is necessary
     }
 
     @Override
