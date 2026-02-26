@@ -1,17 +1,24 @@
-package at.technikum.elements.grouped;
+package at.technikum.elements;
 
 import at.technikum.commands.Command;
-import at.technikum.elements.FlipperElement;
 import at.technikum.mediator.Mediator;
+import at.technikum.visitor.PointSource;
 import at.technikum.visitor.Visitor;
 
-public class GroupTarget extends FlipperElement {
+/**
+ * GroupTarget is a target that has a mediator
+ */
+
+public class GroupTarget extends FlipperElement implements PointSource {
     private Mediator mediator;
     private int hitCount;
-    public GroupTarget(Command command, Mediator mediator, String name) {
+    private int pointsPerHit;
+
+    public GroupTarget(Command command, Mediator mediator, String name, int pointsPerHit) {
         super(command, name);
         this.mediator = mediator;
         this.hitCount = 0;
+        this.pointsPerHit = pointsPerHit;
     }
 
     /**
@@ -20,7 +27,7 @@ public class GroupTarget extends FlipperElement {
     @Override
     public void hit(){
         super.hit();
-        hitCount =+ 1;
+        this.hitCount = this.hitCount + 1;
         if (mediator != null){
             mediator.makeNotification(this, getName());
         }
@@ -31,8 +38,19 @@ public class GroupTarget extends FlipperElement {
         v.visit(this);
     }
 
+    @Override
     public int getHitCount() {
-        return hitCount;
+        return this.hitCount;
+    }
+
+    @Override
+    public int getPointsPerHit() {
+        return pointsPerHit;
+    }
+
+    @Override
+    public int calculatePoints() {
+        return pointsPerHit * hitCount;
     }
 
     public void setHitCount(int hitCount) {

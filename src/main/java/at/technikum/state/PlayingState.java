@@ -30,6 +30,7 @@ public class PlayingState extends Zustand {
 
         //testcode for loosing the ball 3x
         getFlipper().getElements().get(1).hit();
+        hitTargetGroup();
         getFlipper().getElements().get(1).hit();
         getFlipper().getElements().get(1).hit();
 

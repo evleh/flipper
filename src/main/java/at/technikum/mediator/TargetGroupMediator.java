@@ -1,7 +1,7 @@
 package at.technikum.mediator;
 
 import at.technikum.elements.FlipperElement;
-import at.technikum.elements.grouped.GroupTarget;
+import at.technikum.elements.GroupTarget;
 import at.technikum.elements.TunnelElement;
 
 import java.util.ArrayList;

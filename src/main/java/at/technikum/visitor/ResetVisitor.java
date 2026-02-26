@@ -1,7 +1,7 @@
 package at.technikum.visitor;
 
 import at.technikum.elements.*;
-import at.technikum.elements.grouped.GroupTarget;
+import at.technikum.elements.GroupTarget;
 
 /*
     Possible improvements: implement "reset"-method in every element and call
