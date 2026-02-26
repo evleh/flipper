@@ -12,8 +12,8 @@ public class PointsVisitor implements Visitor{
     }
 
     @Override
-    public void visit(TunnelElement e) {
-
+    public void visit(TunnelElement target) {
+        totalPoints += target.calculatePoints();
     }
 
     @Override

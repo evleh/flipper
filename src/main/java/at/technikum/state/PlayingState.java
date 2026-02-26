@@ -34,9 +34,6 @@ public class PlayingState extends Zustand {
         getFlipper().getElements().get(1).hit();
         getFlipper().getElements().get(1).hit();
 
-
-        //hitTargetGroup();
-
         super.getFlipper().setZustand(new EndState(getFlipper()));
         super.getFlipper().reset();
     }

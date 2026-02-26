@@ -15,9 +15,11 @@ import java.util.List;
  * If resetTarget is hit, counter is reset without triggering the response Element
  *
  * Note: Functionality mediated with this class, provides additional functionality to the basic command registered
- * in target group elements. todo check this
+ * in target group elements.
  */
 public class TargetGroupMediator implements Mediator{
+
+    private List<Integer> hitCounter = new ArrayList<>();
 
     private List<GroupTarget> targetGroup = new ArrayList<>();
 
@@ -33,8 +35,8 @@ public class TargetGroupMediator implements Mediator{
 
         for (int i = 0; i < targetGroup.size(); i++) {
             if(sender == targetGroup.get(i)){
-                System.out.println("\tTarget: " +  event);
-                targetGroup.get(i).setHitCount(targetGroup.get(i).getHitCount() + 1);
+                // System.out.println("\tTarget: " +  event);
+                hitCounter.set(i, hitCounter.get(i) + 1);
             }
 
         }
@@ -52,8 +54,8 @@ public class TargetGroupMediator implements Mediator{
 
     public boolean allTargetsHit(){
 
-        for(GroupTarget target : targetGroup){
-            if(target.getHitCount() == 0){
+        for(Integer i : hitCounter){
+            if(i == 0){
                 return false;
             }
         }
@@ -62,6 +64,7 @@ public class TargetGroupMediator implements Mediator{
 
     public void addToTargetGroup(GroupTarget newTarget){
         targetGroup.add(newTarget);
+        hitCounter.add(0);
     }
 
     public void setResetTarget(GroupTarget resetTarget){
@@ -73,9 +76,9 @@ public class TargetGroupMediator implements Mediator{
     }
 
     public void resetCounter(){
-        System.out.println("- MEDIATOR: RESET TARGET GROUP -");
-        for(GroupTarget target : targetGroup){
-            target.setHitCount(0);
+        System.out.println("- RESET TARGET GROUP -");
+        for (int i = 0; i < hitCounter.size(); i++) {
+            hitCounter.set(i, 0);
         }
     }
 }

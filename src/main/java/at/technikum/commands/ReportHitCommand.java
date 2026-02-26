@@ -5,15 +5,13 @@ import at.technikum.Flipper;
 // konkreter befehl
 public class ReportHitCommand implements Command{
     private final Flipper flipper;
-    private final int points;
 
-    public ReportHitCommand(Flipper flipper, int points){
+    public ReportHitCommand(Flipper flipper){
         this.flipper = flipper;
-        this.points = points;
     }
 
     @Override
     public void execute() {
-        this.flipper.reportHit(this.points);
+        this.flipper.reportHit();
     }
 }
