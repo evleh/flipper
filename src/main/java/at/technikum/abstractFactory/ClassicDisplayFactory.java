@@ -5,7 +5,14 @@ package at.technikum.abstractFactory;
  */
 public class ClassicDisplayFactory implements AbstractDisplayFactory{
     @Override
-    public void printPressStart(String s) {
-        System.out.println("CLASSIC: " + s);
+    public void printPressStart() {
+        String start = "------------- PRESS START TO PLAY ------------";
+        System.out.println(start);
+    }
+
+    @Override
+    public void printBallLost(){
+        String start = "------------- BALL LOST ------------";
+        System.out.println(start);
     }
 }
