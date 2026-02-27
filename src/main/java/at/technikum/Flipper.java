@@ -16,20 +16,7 @@ import at.technikum.visitor.ResetVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Kontext
- * Zustand ist als abstrakte klasse definiert. Zur laufzeit ist es eine Implementation
- *
- *
- * Kompositum: anderes Muster um Komplexe Objekte zusammen zu führen e.g.
- * gibt flipper Elemente die unterschiedliche sachen machen
- *
- * Tutorium: kompositum, Befehl 
- */
 
-// todo: examples for makrocommands: Hole konfigurieren, sodass ein Befehl für die Punktevergabe zuständig ist und ein weiterer Befehl den Spieler bzw. die Spielerin zwischen 1, 2 und 3 wählen lässt, wobei es beim Erraten Zusatzpunkte gibt.
-// todo adpter durchdenken: ist es genug das Methoden namen inkompatibel sind ??
-// Zusätzliche Patterns: Mediator, Factory
 public class Flipper {
 
     private Zustand zustand;
@@ -148,10 +135,8 @@ public class Flipper {
 
     public void reportHit(){
         System.out.println("\tPoints scored!");
-        // sout sie haben punkte erhalten
     }
 
-    // to do getElements Methode
     public List<FlipperElement> getElements(){
         return elements;
     }
