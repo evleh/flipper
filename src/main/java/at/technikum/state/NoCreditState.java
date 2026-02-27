@@ -9,8 +9,8 @@ public class NoCreditState extends Zustand{
     }
 
     @Override
-    public String pressStart() {
-        return "No credit -> Please insert coin.";
+    public void pressStart() {
+        System.out.println("No credit -> Please insert coin.");
     }
 
     @Override

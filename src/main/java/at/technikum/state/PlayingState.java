@@ -9,8 +9,8 @@ public class PlayingState extends Zustand {
     }
 
     @Override
-    public String pressStart() {
-        return "Playing -> Author: Eva Lehner ";
+    public void pressStart() {
+        System.out.println("Playing -> Author: Eva Lehner ");
     }
 
     @Override

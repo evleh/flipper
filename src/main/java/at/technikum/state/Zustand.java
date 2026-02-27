@@ -16,7 +16,7 @@ public abstract class Zustand {
         this.flipper = flipper;
     }
 
-    public abstract String pressStart();
+    public abstract void pressStart();
     public abstract void flipLeft();
     public abstract void flipRight();
     public void insertCoin(){

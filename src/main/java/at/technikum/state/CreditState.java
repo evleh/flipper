@@ -8,20 +8,22 @@ public class CreditState extends Zustand{
         super(flipper);
     }
     @Override
-    public String pressStart() {
+    public void pressStart() {
         super.getFlipper().setZustand(new PlayingState(getFlipper()));
         super.getFlipper().decrementCredits();
-        return "Credit -> Game was started (cost 1 credit)";
+
+        System.out.println("Credit -> Game was started (cost 1 credit)");
+
     }
 
     @Override
     public void flipLeft() {
-        System.out.println("Credit -> Press start-button so play!");
+        super.getFlipper().getDisplayFactory().printPressStart();
     }
 
     @Override
     public void flipRight() {
-        System.out.println("Credit -> Press start-button so play!");
+        super.getFlipper().getDisplayFactory().printPressStart();
     }
 
     @Override
